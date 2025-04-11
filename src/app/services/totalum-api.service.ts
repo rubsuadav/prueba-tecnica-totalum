@@ -10,7 +10,9 @@ export class TotalumApiService {
   constructor() {
     const options: AuthOptions = {
       apiKey: {
-        'api-key': import.meta.env.NG_APP_TOTALUM_API_KEY,
+        'api-key':
+          import.meta.env.NG_APP_TOTALUM_API_KEY ||
+          'sk-eyJrZXkiOiIzOWNjMWRkN2M4ZGI4Y2NmZmUwMDJhNWEiLCJuYW1lIjoiRGVmYXVsdCBBUEkgS2V5IGF1dG9nZW5lcmF0ZWQgajlydyIsIm9yZ2FuaXphdGlvbklkIjoicnViZW4tc3VhcmV6LWRhdmlkLXBydWViYS10ZWNuaWNhIn0_',
       },
     };
     totalumSdk = new TotalumApiSdk(options);
