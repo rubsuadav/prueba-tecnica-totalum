@@ -1,0 +1,62 @@
+<div class="card">
+  <h2>Tabla de Pedidos</h2>
+
+  <!-- Buscador -->
+  <div class="buscador">
+    <input
+      type="text"
+      [(ngModel)]="terminoBusqueda"
+      (input)="buscarPedido()"
+      placeholder="Buscar..."
+    />
+  </div>
+
+  <!-- Tabla de pedidos -->
+  @if(pedidos.length === 0) {
+  <div class="sin-resultados">
+    <p>No se encontraron resultados de la búsqueda.</p>
+  </div>
+  } @else {
+  <table>
+    <thead>
+      <tr>
+        <th>Número de Pedido</th>
+        <th>Importe</th>
+        <th>Importe Impuestos</th>
+        <th>Cantidad de Productos</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (pedido of pedidos; track $index) {
+      <tr>
+        <td>{{ pedido.numero_pedido }}</td>
+        <td>{{ pedido.importe | currency }}</td>
+        <td>{{ pedido.importe_impuestos | currency }}</td>
+        <td>{{ pedido.cantidad_productos }}</td>
+        <td>{{ pedido.fecha | date : "dd/MM/yyyy" }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+
+  <!-- Paginación -->
+  @if (!terminoBusqueda.trim()) {
+  <div class="paginacion">
+    <button
+      (click)="cambiarPagina(paginaActual - 1)"
+      [disabled]="paginaActual === 0"
+    >
+      Anterior
+    </button>
+    <span>Página {{ paginaActual + 1 }} de {{ totalPaginas }}</span>
+    <button
+      (click)="cambiarPagina(paginaActual + 1)"
+      [disabled]="paginaActual + 1 >= totalPaginas"
+    >
+      Siguiente
+    </button>
+  </div>
+  }
+</div>

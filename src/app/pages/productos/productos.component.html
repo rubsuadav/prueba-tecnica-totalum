@@ -1,0 +1,60 @@
+<div class="card">
+  <h2>Tabla de Productos</h2>
+
+  <!-- Buscador -->
+  <div class="buscador">
+    <input
+      type="text"
+      [(ngModel)]="terminoBusqueda"
+      (input)="buscarProducto()"
+      placeholder="Buscar..."
+    />
+  </div>
+
+  <!-- Tabla de pedidos -->
+  @if(productos.length === 0) {
+  <div class="sin-resultados">
+    <p>No se encontraron resultados de la búsqueda.</p>
+  </div>
+  } @else {
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Categoria</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (producto of productos; track $index) {
+      <tr>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio | currency }}</td>
+        <td>{{ producto.categoria }}</td>
+        <td>{{ producto.cantidad }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+
+  <!-- Paginación -->
+  @if (!terminoBusqueda.trim()) {
+  <div class="paginacion">
+    <button
+      (click)="cambiarPagina(paginaActual - 1)"
+      [disabled]="paginaActual === 0"
+    >
+      Anterior
+    </button>
+    <span>Página {{ paginaActual + 1 }} de {{ totalPaginas }}</span>
+    <button
+      (click)="cambiarPagina(paginaActual + 1)"
+      [disabled]="paginaActual + 1 >= totalPaginas"
+    >
+      Siguiente
+    </button>
+  </div>
+  }
+</div>
